@@ -1,25 +1,23 @@
-import { Client } from '@stomp/stompjs';
-import axios from 'axios';
-import React, { useEffect, useRef, useState } from 'react';
-import SockJS from 'sockjs-client';
-import noIMGpng from '../assets/image/noIMGSq.png';
-import { getMessages } from './api'; // Your API helpers
-// import { getMessages, sendChatMessage  } from './api'; // Your API helpers
+import { Client } from "@stomp/stompjs";
+import axios from "axios";
+import React, { useEffect, useRef, useState } from "react";
+import SockJS from "sockjs-client";
+import { getMessages } from "./api";
 
 let stompClient = null;
 
 function Chat() {
-  const base_UrlS = process.env.REACT_APP_BASE_URL ;
+  const base_UrlS = process.env.REACT_APP_BASE_URL;
   const [messages, setMessages] = useState([]);
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
   const [file, setFile] = useState(null);
-  const [username, setUsername] = useState('User');
+  const [username, setUsername] = useState("User");
   const chatBoxRef = useRef(null);
 
   useEffect(() => {
-    axios.get("https://api.ipify.org?format=json").then(res => {
+    axios.get("https://api.ipify.org?format=json").then((res) => {
       setUsername(res.data.ip);
-  });
+    });
     fetchMessages();
     connectWebSocket();
   }, []);
@@ -34,11 +32,11 @@ function Chat() {
     stompClient = new Client({
       webSocketFactory: () => socket,
       onConnect: () => {
-        stompClient.subscribe('/topic/messages', (msg) => {
+        stompClient.subscribe("/topic/messages", (msg) => {
           const message = JSON.parse(msg.body);
           setMessages((prev) => [...prev, message]);
         });
-      },
+      }
     });
     stompClient.activate();
   };
@@ -48,63 +46,51 @@ function Chat() {
 
     if (file) {
       const formData = new FormData();
-      formData.append('file', file);
-
-      // Optional: allow user to choose subdir (e.g., "chat", "profile", etc.)
-      const subdir = 'chat'; // Change this if you allow dynamic subdirectories
-      formData.append('subdir', subdir);
+      formData.append("file", file);
+      formData.append("sender", username);
+      formData.append("type", "chat");
+      formData.append("subdir", "chat");
 
       try {
-        const res = await axios.post(`${base_UrlS}/api/chat/upload/image`, formData, {
-          headers: { 'Content-Type': 'multipart/form-data' },
-        });
+        const res = await axios.post(
+          `${base_UrlS}/api/chat/upload/image`,
+          formData,
+          {
+            headers: { "Content-Type": "multipart/form-data" }
+          }
+        );
 
-        const imagePath = res.data; // e.g., "/images/chat/myphoto.jpg"
-        const imageMessage = {
-          sender: username,
-          message: imagePath,
-          type: 'image',
-        };
+        const imageMessage = res.data; // ChatMessage from backend
 
+        // Send via WebSocket
         stompClient.publish({
-          destination: '/app/chat',
-          body: JSON.stringify(imageMessage),
+          destination: "/app/chat",
+          body: JSON.stringify(imageMessage)
         });
 
+        // Show immediately
+        // setMessages((prev) => [...prev, imageMessage]);
         setFile(null);
       } catch (err) {
-        alert('Image upload failed');
+        alert("Image upload failed");
       }
 
       return;
     }
 
-    // Text message
     const userMessage = {
       sender: username,
       message: input,
-      type: 'text',
+      type: "text"
     };
 
     stompClient.publish({
-      destination: '/app/chat',
-      body: JSON.stringify(userMessage),
+      destination: "/app/chat",
+      body: JSON.stringify(userMessage)
     });
 
-    setInput('');
-
-    // GPT reply
-    // const res = await sendChatMessage(userMessage);
-    // const botMessage = {
-    //   sender: 'GPT',
-    //   message: res.data.reply,
-    //   type: 'text',
-    // };
-
-    // stompClient.publish({
-    //   destination: '/app/chat',
-    //   body: JSON.stringify(botMessage),
-    // });
+    // setMessages((prev) => [...prev, userMessage]);
+    setInput("");
   };
 
   useEffect(() => {
@@ -117,24 +103,21 @@ function Chat() {
       <div
         ref={chatBoxRef}
         style={{
-          border: '1px solid #ccc',
+          border: "1px solid #ccc",
           height: 400,
-          overflowY: 'scroll',
+          overflowY: "scroll",
           padding: 10,
-          marginBottom: 10,
+          marginBottom: 10
         }}
       >
         {messages.map((msg, index) => (
           <div key={index} style={{ marginBottom: 10 }}>
-            <strong>{msg.sender}:</strong>{' '}
-            {msg.type === 'image' ? (
+            <strong>{msg.sender}:</strong>{" "}
+            {msg.type === "image" ? (
               <img
-                src={`${base_UrlS}/uploads${msg.message}`}
-                alt={msg.message}
-                style={{ maxWidth: '200px', marginTop: 5 }}
-                onError={(event) => {
-                  event.target.src = noIMGpng;
-                }}
+                src={`${base_UrlS}/uploads/${msg.message}`}
+                alt="uploaded"
+                style={{ maxWidth: "200px", marginTop: 5 }}
               />
             ) : (
               msg.message
@@ -149,8 +132,8 @@ function Chat() {
           placeholder="Type a message..."
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-          style={{ width: '60%', marginRight: 10 }}
+          onKeyDown={(e) => e.key === "Enter" && handleSend()}
+          style={{ width: "60%", marginRight: 10 }}
         />
         <input
           type="file"
