@@ -1,5 +1,5 @@
 import axios from "axios";
-const base_UrlS = process.env.base_Url || "http://192.168.58.42:8080";
+const base_UrlS = process.env.REACT_APP_BASE_URL;
 
 const API = axios.create({
   baseURL: `${base_UrlS}/api/chat`,

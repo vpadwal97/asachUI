@@ -2,12 +2,14 @@ import { Client } from '@stomp/stompjs';
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
 import SockJS from 'sockjs-client';
+import noIMGpng from '../assets/image/noIMGSq.png';
 import { getMessages } from './api'; // Your API helpers
 // import { getMessages, sendChatMessage  } from './api'; // Your API helpers
 
 let stompClient = null;
 
 function Chat() {
+  const base_UrlS = process.env.REACT_APP_BASE_URL ;
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [file, setFile] = useState(null);
@@ -28,7 +30,7 @@ function Chat() {
   };
 
   const connectWebSocket = () => {
-    const socket = new SockJS('http://192.168.58.42:8080/ws/chat');
+    const socket = new SockJS(`${base_UrlS}/ws/chat`);
     stompClient = new Client({
       webSocketFactory: () => socket,
       onConnect: () => {
@@ -53,7 +55,7 @@ function Chat() {
       formData.append('subdir', subdir);
 
       try {
-        const res = await axios.post('http://192.168.58.42:8080/api/chat/upload/image', formData, {
+        const res = await axios.post(`${base_UrlS}/api/chat/upload/image`, formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         });
 
@@ -127,9 +129,12 @@ function Chat() {
             <strong>{msg.sender}:</strong>{' '}
             {msg.type === 'image' ? (
               <img
-                src={`http://192.168.58.42:8080/uploads${msg.message}`}
-                alt="Uploaded"
+                src={`${base_UrlS}/uploads${msg.message}`}
+                alt={msg.message}
                 style={{ maxWidth: '200px', marginTop: 5 }}
+                onError={(event) => {
+                  event.target.src = noIMGpng;
+                }}
               />
             ) : (
               msg.message
