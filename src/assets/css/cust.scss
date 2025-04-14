@@ -1,0 +1,33 @@
+/* The following block can be included in a custom.scss */
+
+/* make the customizations */
+
+    // $primaryColor: rgba(var(--bs-primary-rgb) , 1);
+    // $secondaryColor: rgba(var(--bs-secondary-rgb) , 1);
+    $primaryColor: rgba(69, 49, 177 , 1);
+    $secondaryColor: rgba(168, 54, 173 , 1);
+
+$theme-colors: (
+    "primary": $primaryColor,
+    "secondary": $secondaryColor,
+
+    // "primary": rgba(69, 49, 177 , 1),
+    // "secondary": rgba(168, 54, 173 , 1),
+    // proScale 
+    // "primary": rgba(0, 0, 128 , 1),
+    // "secondary": rgba(255, 214, 49 , 1),
+
+    "gray": #6c757d,
+    "success": #198754,
+    "info": #0dcaf0,
+    "warning": #ffc107,
+    "danger": #dc3545,
+    "light": #f8f9fa,
+    "dark": #212529,
+    "light1": rgba(243, 252, 255, 1),
+    "light2": rgba(239, 239, 239, 1),
+);
+
+
+/* import bootstrap to set changes */
+@import '~bootstrap/scss/bootstrap';

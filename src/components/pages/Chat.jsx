@@ -114,11 +114,13 @@ function Chat() {
           <div key={index} style={{ marginBottom: 10 }}>
             <strong>{msg.sender}:</strong>{" "}
             {msg.type === "image" ? (
-              <img
-                src={`${base_UrlS}/uploads/${msg.message}`}
-                alt="uploaded"
-                style={{ maxWidth: "200px", marginTop: 5 }}
-              />
+              <>
+                <img
+                  src={`${base_UrlS}/uploads/${msg.message}`}
+                  alt="uploaded"
+                  style={{ maxWidth: "200px", marginTop: 5 }}
+                />
+              </>
             ) : (
               msg.message
             )}
