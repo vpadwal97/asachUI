@@ -20,6 +20,11 @@ function FormComponent() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  const handleEdit = (item) => {
+    setForm(item);
+    setIsEditMode(true);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -50,11 +55,6 @@ function FormComponent() {
   const handleGetSavedForms = async () => {
     const response = await axios.get(`${base_UrlS}/api/form/getSaveFormData`);
     setFormList(response.data || []);
-  };
-
-  const handleEdit = (item) => {
-    setForm(item);
-    setIsEditMode(true);
   };
 
   const handleDelete = async (id) => {

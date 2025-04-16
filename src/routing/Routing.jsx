@@ -5,6 +5,7 @@ import Chat from "../components/pages/Chat.jsx";
 import ColorExtractor from "../components/pages/ColorExtractor.jsx";
 import FormComponent from "../components/pages/FormComponent.jsx";
 import NotFound from "../components/pages/NotFound.jsx";
+import Table from "../components/pages/Table.jsx";
 
 const Routing = createBrowserRouter([
   {
@@ -15,6 +16,7 @@ const Routing = createBrowserRouter([
       { path: 'form', element: <FormComponent /> },
       { path: 'Chat', element: <Chat /> },
       { path: 'ColorExtractor', element: <ColorExtractor /> },
+      { path: 'Table', element: <Table /> },
     ],
   },
   {
