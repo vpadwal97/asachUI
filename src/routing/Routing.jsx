@@ -6,23 +6,35 @@ import ColorExtractor from "../components/pages/ColorExtractor.jsx";
 import FormComponent from "../components/pages/FormComponent.jsx";
 import NotFound from "../components/pages/NotFound.jsx";
 import Table from "../components/pages/Table.jsx";
+import CmsComponentDesign from "../components/pages/backend/cms/ThemeLayoutStructure/CmsComponentDesign.jsx";
 
 const Routing = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <Home />,
     children: [
-      { path: '', element: "" },
-      { path: 'form', element: <FormComponent /> },
-      { path: 'Chat', element: <Chat /> },
-      { path: 'ColorExtractor', element: <ColorExtractor /> },
-      { path: 'Table', element: <Table /> },
-    ],
+      { path: "", element: "" },
+      { path: "form", element: <FormComponent /> },
+      { path: "Chat", element: <Chat /> },
+      { path: "ColorExtractor", element: <ColorExtractor /> },
+      { path: "Table", element: <Table /> },
+      {
+        path: "/cms",
+        element: "",
+        children: [
+          {
+            path: "themeandlayout",
+            element: "",
+            children: [{ path: "cmsComponentDesign", element: <CmsComponentDesign /> }]
+          }
+        ]
+      }
+    ]
   },
   {
-    path: '*',
-    element: <NotFound />,
-  },
+    path: "*",
+    element: <NotFound />
+  }
 ]);
 
 export default Routing;
