@@ -57,6 +57,8 @@ const Example = () => {
     useUpdateUser();
   const { mutateAsync: deleteUser, isPending: isDeletingUser } =
     useDeleteUser();
+  const { mutateAsync: reorderUser, isPending: isreorderUser } =
+    useReorderUser();
 
   const clearErrors = (key) =>
     setValidationErrors((prev) => ({ ...prev, [key]: undefined }));
@@ -230,9 +232,29 @@ const Example = () => {
         Create New User
       </Button>
     ),
+
+    enableRowOrdering: true,
+    enableSorting: false,
+    muiRowDragHandleProps: ({ table }) => ({
+      onDragEnd: () => {
+        const { draggingRow, hoveredRow } = table.getState();
+        if (hoveredRow && draggingRow) {
+          // Splice the data array to reorder the rows based on drag
+          const newData = [...fetchedUsers];
+          const draggedRowData = newData.splice(draggingRow.index, 1)[0];
+          newData.splice(hoveredRow.index, 0, draggedRowData);
+          // setData(newData); // Update the data state with new row order
+          // const queryClient = useQueryClient();
+          reorderUser(newData);
+          // queryClient.setQueryData(["users"], () => newData);
+        }
+      }
+    }),
+
     state: {
       isLoading: isLoadingUsers,
-      isSaving: isCreatingUser || isUpdatingUser || isDeletingUser,
+      isSaving:
+        isCreatingUser || isUpdatingUser || isDeletingUser || isreorderUser,
       showAlertBanner: isLoadingUsersError,
       showProgressBars: isFetchingUsers
     }
@@ -301,6 +323,22 @@ const useDeleteUser = () => {
       queryClient.setQueryData(["users"], (old = []) =>
         old.filter((u) => u.id !== id)
       );
+    }
+  });
+};
+
+const useReorderUser = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (formData) => {
+      const { data } = await axios.put(
+        `${base_UrlS}/api/form/reorderForms`,
+        formData
+      );
+      return data;
+    },
+    onSuccess: (newUser) => {
+      queryClient.setQueryData(["users"], () => newUser);
     }
   });
 };
