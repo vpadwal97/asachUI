@@ -1,31 +1,65 @@
 import React from "react";
 import { createBrowserRouter } from "react-router-dom";
-import Home from "../components/home/Home.jsx";
-import Chat from "../components/pages/Chat.jsx";
-import ColorExtractor from "../components/pages/ColorExtractor.jsx";
-import FormComponent from "../components/pages/FormComponent.jsx";
+import FrontendLayout from "../components/home/frontend/FrontendLayout.jsx";
+import Homepage from "../components/home/frontend/HomePage.jsx";
 import NotFound from "../components/pages/NotFound.jsx";
-import Table from "../components/pages/Table.jsx";
+import Login from "../components/pages/backend/Login.jsx";
 import CmsComponentDesign from "../components/pages/backend/cms/ThemeLayoutStructure/CmsComponentDesign.jsx";
+import ColorExtractor from "../components/pages/frontEnd/ColorExtractor.jsx";
+import FormComponent from "../components/pages/frontEnd/FormComponent.jsx";
+import Table from "../components/pages/frontEnd/Table.jsx";
+import Chat from "../components/pages/frontEnd/chat/Chat.jsx";
+import ProtectedRoute from "../utils/ProtectedRoute.jsx";
+import UnProtectedRoute from "../utils/UnProtectedRoute.jsx";
 
 const Routing = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: 
+    <>
+    loadhotai
+    <FrontendLayout />
+    </>
+    ,
     children: [
-      { path: "", element: "" },
+      // { path: "", element: "" },
+      { path: "", element: <Homepage /> },
       { path: "form", element: <FormComponent /> },
       { path: "Chat", element: <Chat /> },
       { path: "ColorExtractor", element: <ColorExtractor /> },
       { path: "Table", element: <Table /> },
+
+    ]
+  },
+  {
+    path: "/backend/login",
+    element: (
+      <UnProtectedRoute>
+        <Login />
+      </UnProtectedRoute>
+    )
+  },
+  {
+    path: "/backend",
+    element: <ProtectedRoute />,
+    children: [
       {
-        path: "/cms",
+        path: "Home",
+        element: "home"
+      },
+      {
+        path: "cms",
         element: "",
         children: [
           {
             path: "themeandlayout",
             element: "",
-            children: [{ path: "cmsComponentDesign", element: <CmsComponentDesign /> }]
+            children: [
+              {
+                path: "cmsComponentDesign",
+                element: <CmsComponentDesign />
+              }
+            ]
           }
         ]
       }

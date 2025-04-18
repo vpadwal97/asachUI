@@ -1,0 +1,116 @@
+// @import url('./fonts.css');
+
+:root {
+  --bs-primary-rgb: 69, 49, 177;
+  --bs-primary: rgba(var(--bs-primary-rgb), 1);
+  --bs-secondary-rgb: 168, 54, 173;
+  --bs-secondary: rgba(var(--bs-secondary-rgb), 1);
+  --offer-container-color: rgba(var(--bs-primary-rgb), 0.7);
+  --newArrival-container-color: rgb(var(--bs-secondary-rgb), 0.7);
+  --newArrival-color: rgb(var(--bs-body-bg-rgb), 0.9);
+
+  --cream: #f5ece3;
+  --color-underlined: var(--bs-secondary-rgb);
+
+  --gray: #444444;
+  --white: #FFFFFF;
+  --black: #000000;
+  --rgb-black: 0, 0, 0;
+  --cblack: #373f50;
+  --light-gray: #F6F6F6;
+  --darkgray: #A9A9A9;
+  --rgb-light-red: 242, 116, 116;
+  --rgb-red: 218, 21, 30;
+  --red: #DA151E;
+
+  --color1: #E1E1E1;
+  --color2: #4154f1;
+
+  --color4: #aab7cf;
+  --color5: #f6f9ff;
+  --color6: #D1D1D1;
+  --color7: #ccc;
+  --color8: #0d6efd;
+  --color9: #aaa;
+  --color10: #888;
+  --color11: #fefefe;
+  --color12: #f5f7f8;
+  --color13: #ddd;
+  --color14: #333333;
+  --color15: #f9f9f9;
+  --color16: #61b439;
+  --color17: #f5f5f5;
+  --color18: #008000;
+
+  --color21: #E3E4E4;
+  --color22: #f8f8f8;
+  --color23: #455a64;
+  --color24: #dee2e6;
+  --color26: #e4e5e7;
+  --box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  --header-height: 80px;
+  --footer-height: 50px;
+  --success: #a5dc86;
+  --error: #f27474;
+  --warning: #f8bb86;
+  --info: #3fc3ee;
+  --question: #87adbd;
+  --bs-emphasis-color: var(--bs-body-color) !important;
+  --productCard-border-color: rgba(var(--bs-secondary-rgb), 0.2);
+  --productCard-border-hover-color: rgba(var(--bs-primary-rgb), 0.5);
+
+
+  /*********************Font Style**********************/
+  --bs-body-font-family: 'Gotham Narrow' !important;
+  --body-font-family: 'Gotham Narrow';
+  --title-font-family: 'Gotham Narrow';
+  --breadcrumb-font-family: 'Gotham Narrow';
+  --buttons-font-family: 'Gotham Narrow';
+
+  /*********************Font Size**********************/
+  --bs-dropdown-font-size: 12px;
+  --bs-body-font-size: 12px;
+  --breadcrumb-title-fontSize: 24px;
+  --breadcrumb-item-fontSize: 17px;
+  --label-fontSize: 14px;
+  --form-group-input-fontSize: 16px;
+  --form-label-fontSize: 16px;
+  --font-weight: 500;
+  --font-size: 14px;
+  --font-weight: normal;
+
+
+  --p-Logo-height: 60px;
+  --h2-icon: 25px;
+  --storyCard_footer_icons: 60px;
+  --subcat-img: 45px;
+  --left-box-position: absolute;
+  --hero_banner-aspect-ratio: 3 / 1;
+  --hero_banner-height: 17vw;
+  --component-name: 24px;
+  --cart-info-width: 308px;
+  --cart-info-height: 50vh;
+}
+
+
+/* --------------------responsive-------------------- */
+@media (max-width: 768px) {
+  :root {
+    --p-Logo-height: 45px;
+    --h2-icon: 20px;
+    --storyCard_footer_icons: 50px;
+    --subcat-img: "40px";
+    --component-name: 16px;
+  }
+
+}
+
+@media (max-width: 575px) {
+  :root {
+    --left-box-position: static;
+    --hero_banner-aspect-ratio: 1 / 0.5;
+    --hero_banner-height: 27vw;
+    --component-name: 16px;
+  }
+
+}

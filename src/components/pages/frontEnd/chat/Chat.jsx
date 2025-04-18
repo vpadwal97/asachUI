@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import SockJS from "sockjs-client";
 import { getMessages } from "./api";
 
+
 let stompClient = null;
 
 function Chat() {
