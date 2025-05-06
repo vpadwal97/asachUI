@@ -8,7 +8,7 @@ import { getMessages } from "./api";
 let stompClient = null;
 
 function Chat() {
-  const base_UrlS = process.env.REACT_APP_BASE_URL;
+  const base_UrlS = import.meta.env.VITE_BASE_URL;
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [file, setFile] = useState(null);

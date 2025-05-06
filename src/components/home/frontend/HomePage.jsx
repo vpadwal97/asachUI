@@ -1,21 +1,20 @@
 import axios from "axios";
 import { motion } from "framer-motion";
 import React, { Suspense, useEffect, useState } from "react";
-import Spinner from "react-bootstrap/esm/Spinner";
 import LogoAnimation from "../../Common/LogoAnimation";
 import MouseTracker from "../../Common/MouseTracker";
 
 const loadComponent = (componentName) => {
   return React.lazy(() =>
-    import(`../../pages/frontEnd/homePage/${componentName}`)
+    import(`../../pages/frontEnd/homePage/${componentName}.jsx`)
   );
 };
 
 function Homepage() {
-  const base_UrlS = process.env.REACT_APP_BASE_URL;
+  const base_UrlS = import.meta.env.VITE_BASE_URL;
   const [isLoading, setIsLoading] = useState(true);
 
-  const [homeBanners, setHomeBanners] = useState([]);
+  const [componentDesign, setComponentDesign] = useState([]);
   const renderHomePage = async () => {
     setIsLoading(true);
     try {
@@ -24,7 +23,7 @@ function Homepage() {
       );
 
       // const response = homePageResponse;
-      setHomeBanners(response.data);
+      setComponentDesign(response.data);
     } catch (error) {
       console.error(error);
     } finally {
@@ -42,20 +41,13 @@ function Homepage() {
         <LogoAnimation />
       ) : (
         <>
-          {homeBanners &&
-            homeBanners.length > 0 &&
-            homeBanners.map((banner) => {
-              if (banner.isActive === true) {
-                const DynamicComponent = loadComponent(banner.componentCode);
-                return (
-                  <Suspense
-                    fallback={
-                      <div className="d-flex justify-content-center py-4">
-                        <Spinner animation="border" />
-                      </div>
-                    }
-                    key={banner.id}
-                  >
+          <Suspense fallback={<LogoAnimation />}>
+            {componentDesign &&
+              componentDesign?.length > 0 &&
+              componentDesign.map((banner) => {
+                if (banner.isActive === true) {
+                  const DynamicComponent = loadComponent(banner.componentCode);
+                  return (
                     <motion.div
                       initial={{ opacity: 0, y: 100 }}
                       whileInView={{
@@ -72,10 +64,10 @@ function Homepage() {
                       {banner.componentName}
                       <DynamicComponent banner={banner} />
                     </motion.div>
-                  </Suspense>
-                );
-              }
-            })}
+                  );
+                }
+              })}
+          </Suspense>
         </>
       )}
       <MouseTracker />

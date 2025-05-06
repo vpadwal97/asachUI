@@ -81,7 +81,6 @@ export const convertToISO = (
   let dd = Number(ddC);
   let mm = Number(mmC);
   let yy = Number(yyC);
-  debugger;
   // Validate required parameters (day, month, year)
   if (!dd || !mm || !yy) return null;
 

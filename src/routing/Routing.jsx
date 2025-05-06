@@ -1,34 +1,35 @@
-import React from "react";
+import React, { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import FrontendLayout from "../components/home/frontend/FrontendLayout.jsx";
-import Homepage from "../components/home/frontend/HomePage.jsx";
-import NotFound from "../components/pages/NotFound.jsx";
-import Login from "../components/pages/backend/Login.jsx";
-import CmsComponentDesign from "../components/pages/backend/cms/ThemeLayoutStructure/CmsComponentDesign.jsx";
-import ColorExtractor from "../components/pages/frontEnd/ColorExtractor.jsx";
-import FormComponent from "../components/pages/frontEnd/FormComponent.jsx";
-import Table from "../components/pages/frontEnd/Table.jsx";
-import Chat from "../components/pages/frontEnd/chat/Chat.jsx";
-import ProtectedRoute from "../utils/ProtectedRoute.jsx";
-import UnProtectedRoute from "../utils/UnProtectedRoute.jsx";
+
+
+const Homepage =  lazy(() => import("../components/home/frontend/HomePage.jsx"));
+const NotFound =  lazy(() => import("../components/pages/NotFound.jsx"));
+const Login =  lazy(() => import("../components/pages/backend/Login.jsx"));
+const MediaGallary =  lazy(() => import("../components/pages/backend/cms/ElementDataSetup/MediaGallary.jsx"));
+const CmsComponentDesign =  lazy(() => import("../components/pages/backend/cms/ThemeLayoutStructure/CmsComponentDesign.jsx"));
+const ColorExtractor =  lazy(() => import("../components/pages/frontEnd/ColorExtractor.jsx"));
+const FormComponent =  lazy(() => import("../components/pages/frontEnd/FormComponent.jsx"));
+const Table =  lazy(() => import("../components/pages/frontEnd/Table.jsx"));
+const Chat =  lazy(() => import("../components/pages/frontEnd/chat/Chat.jsx"));
+const ProtectedRoute =  lazy(() => import("../utils/ProtectedRoute.jsx"));
+const UnProtectedRoute =  lazy(() => import("../utils/UnProtectedRoute.jsx"));
 
 const Routing = createBrowserRouter([
   {
     path: "/",
-    element: 
-    <>
-    loadhotai
-    <FrontendLayout />
-    </>
-    ,
+    element: (
+      <>
+        <FrontendLayout />
+      </>
+    ),
     children: [
       // { path: "", element: "" },
       { path: "", element: <Homepage /> },
       { path: "form", element: <FormComponent /> },
       { path: "Chat", element: <Chat /> },
       { path: "ColorExtractor", element: <ColorExtractor /> },
-      { path: "Table", element: <Table /> },
-
+      { path: "Table", element: <Table /> }
     ]
   },
   {
@@ -58,6 +59,16 @@ const Routing = createBrowserRouter([
               {
                 path: "cmsComponentDesign",
                 element: <CmsComponentDesign />
+              }
+            ]
+          },
+          {
+            path: "elementDataSetup",
+            element: "",
+            children: [
+              {
+                path: "mediaGallary",
+                element: <MediaGallary />
               }
             ]
           }

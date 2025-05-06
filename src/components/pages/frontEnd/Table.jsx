@@ -2,31 +2,31 @@
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import {
-  Box,
-  Button,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  IconButton,
-  TextField,
-  Tooltip
+    Box,
+    Button,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    IconButton,
+    TextField,
+    Tooltip
 } from "@mui/material";
 import {
-  QueryClient,
-  QueryClientProvider,
-  useMutation,
-  useQuery,
-  useQueryClient
+    QueryClient,
+    QueryClientProvider,
+    useMutation,
+    useQuery,
+    useQueryClient
 } from "@tanstack/react-query";
 import axios from "axios";
 import {
-  MaterialReactTable,
-  MRT_EditActionButtons,
-  useMaterialReactTable
+    MaterialReactTable,
+    MRT_EditActionButtons,
+    useMaterialReactTable
 } from "material-react-table";
 import { useMemo, useState } from "react";
 
-const base_UrlS = process.env.REACT_APP_BASE_URL;
+const base_UrlS = import.meta.env.VITE_BASE_URL;
 
 const validateRequired = (value) => !!value?.length;
 const validateDob = (dob) => !!dob?.length && /^\d{4}-\d{2}-\d{2}$/.test(dob);

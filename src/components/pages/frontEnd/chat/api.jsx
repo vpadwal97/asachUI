@@ -1,5 +1,5 @@
 import axios from "axios";
-const base_UrlS = process.env.REACT_APP_BASE_URL;
+const base_UrlS = import.meta.env.VITE_BASE_URL;
 
 const API = axios.create({
   baseURL: `${base_UrlS}/api/chat`,

@@ -25,7 +25,7 @@ import {
 } from "material-react-table";
 import { useMemo, useState } from "react";
 
-const base_UrlS = process.env.REACT_APP_BASE_URL;
+const base_UrlS = import.meta.env.VITE_BASE_URL;
 
 const validateRequired = (value) => value;
 

@@ -9,7 +9,7 @@ import { login } from "../../../reduxStore/slices/authSlice";
 import Input from "../../Common/Input";
 
 export default function Login() {
-  const base_UrlS = process.env.REACT_APP_BASE_URL;
+  const base_UrlS = import.meta.env.VITE_BASE_URL;
   const [loading, setLoading] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");

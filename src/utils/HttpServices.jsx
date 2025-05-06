@@ -2,7 +2,7 @@ import axios from "axios";
 // import { store } from "../reduxStore/Store";
 // import { baseAPIURL } from "../constants/TempAppData";
 
-const base_UrlS = process.env.REACT_APP_BASE_URL;
+const base_UrlS = import.meta.env.VITE_BASE_URL;
 
 axios.interceptors.request.use(
   function (config) {

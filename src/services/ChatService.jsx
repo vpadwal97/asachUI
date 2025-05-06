@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // import axios from '../utils/HttpServices';
-const base_Url = process.env.base_Url;
+const base_Url = import.meta.env.base_Url;
 
 const API_URL = `${base_Url}/api/chat`;
 // const API_URL = "https://asachapi-production.up.railway.app/api/chat";
@@ -9,7 +9,6 @@ const API_URL = `${base_Url}/api/chat`;
 
 export const sendMessage = async (sender, message) => {
   // return axios.post(`${API_URL}/api/chat/send`, { sender, message });
-  debugger
   return axios.post("/api/chat/send", message, {
     headers: {
       "Content-Type": "application/json"

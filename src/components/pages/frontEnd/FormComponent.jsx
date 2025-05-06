@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 function FormComponent() {
-  const base_UrlS = process.env.REACT_APP_BASE_URL;
+  const base_UrlS = import.meta.env.VITE_BASE_URL;
 
   const [form, setForm] = useState({
     id: "",

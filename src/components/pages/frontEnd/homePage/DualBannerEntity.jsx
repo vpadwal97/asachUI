@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 function DualBannerEntity({ ...props }) {
-  const base_UrlS = process.env.REACT_APP_BASE_URL;
+  const base_UrlS = import.meta.env.VITE_BASE_URL;
   const [twoBannerEntity, setTwoBannerEntity] = useState([]);
 
   const dualEntityApi = async () => {

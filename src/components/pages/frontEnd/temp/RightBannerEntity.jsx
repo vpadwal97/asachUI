@@ -5,7 +5,7 @@ import Slider from "react-slick";
 import ProductCard from "../product/ProductCard";
 
 function RightBannerEntity({ ...props }) {
-  const base_UrlS = process.env.REACT_APP_BASE_URL;
+  const base_UrlS = import.meta.env.VITE_BASE_URL;
 
   const [rightBannerEntity, setRightBannerEntity] = useState([]);
 

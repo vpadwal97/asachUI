@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import noIMGpng from "../../../../assets/image/noIMGBanner.png";
 function OffersEntity({ ...props }) {
-  const base_UrlS = process.env.REACT_APP_BASE_URL;
+  const base_UrlS = import.meta.env.VITE_BASE_URL;
   const [offers, setOffers] = useState([]);
 
   const offerEntityApi = async () => {
